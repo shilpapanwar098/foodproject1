@@ -26,7 +26,7 @@ function Cart() {
 
       <h3 className="text-center bg-dark text-white p-2">Cart Items</h3>
       <div className="selected-cart-products-list  w-75 m-auto text-center">
-        <table>
+        <table style={{width: "100%"}} className="rounded">
           <thead>
             <th>Item</th>
             <th>Name</th>
@@ -36,9 +36,9 @@ function Cart() {
           <tbody>
                  {orderList.map((item) => {
               return (
-                <tr className="bg-success " key={item.id}>
-                  <td className="text-white ">
-                    <h5>Image</h5>
+                <tr className="bg-success rounded" key={item.id} >
+                  <td className="text-white " style={{padding: "15px"}}>
+                    <img src={item.image} alt={item.title} width={"150"} height={"150"}/>
                   </td>
                   <td className="text-white">{item.title}</td>
                   <td className="text-white p-3">
