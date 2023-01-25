@@ -5,13 +5,15 @@ import { useContext } from "react";
 import { ProductContext } from "../../Context";
 
 function Cart() {
-  const { orderList, setOrderList, counter, totalAmount, total } =
-    useContext(ProductContext);
-
-  orderList.map((item) => {
-    console.log(item);
-    
-  });
+   const {
+    orderList,
+    setOrderList,
+    counter,
+    totalAmount,
+    total,
+    increamentItem,
+    decreamentItem,
+  } = useContext(ProductContext);
 
   const handleSubmitButton = (e) => {
     e.preventDefault();
@@ -32,13 +34,31 @@ function Cart() {
             <th>Price</th>
           </thead>
           <tbody>
-            {orderList.map((item) => {
-              <tr className="bg-success " key={item.id}>
-                <td className="text-white">{item.image}</td>
-                <td className="text-white">{item.title}</td>
-                <td className="text-white">{item.quantity}</td>
-                <td className="text-white">{item.price}</td>
-              </tr>;
+                 {orderList.map((item) => {
+              return (
+                <tr className="bg-success " key={item.id}>
+                  <td className="text-white ">
+                    <h5>Image</h5>
+                  </td>
+                  <td className="text-white">{item.title}</td>
+                  <td className="text-white p-3">
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => decreamentItem(item.id)}
+                    >
+                      -
+                    </button>
+                    <span className="mx-1"> {item.quantity}</span>
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => increamentItem(item.id)}
+                    >
+                      +
+                    </button>
+                  </td>
+                  <td className="text-white">{item.price}</td>
+                </tr>
+              );
             })}
           </tbody>
         </table>
