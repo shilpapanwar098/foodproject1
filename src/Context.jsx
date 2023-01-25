@@ -31,6 +31,36 @@ const Context = ({ children }) => {
 
     setTotal(sum);
   }
+  
+  
+  var currPrice = 0;
+  function increamentItem(id) {
+    var incObj = cartData.find((element) => element.id == id);
+    incObj.quantity += 1;
+
+    currPrice =
+      (incObj.price * incObj.quantity - incObj.price * (incObj.quantity - 1)) /
+      (incObj.quantity - 1);
+    incObj.price = currPrice * incObj.quantity;
+
+    setOrderList(cartData);
+  }
+
+  function decreamentItem(id) {
+    let decObj = cartData.find((element) => element.id == id);
+    let ind = cartData.indexOf(decObj);
+    if (decObj.quantity > 1) {
+      currPrice =
+        (decObj.price * decObj.quantity -
+          decObj.price * (decObj.quantity - 1)) /
+        decObj.quantity;
+      decObj.quantity -= 1;
+      decObj.price = currPrice * decObj.quantity;
+      setOrderList(cartData);
+    } else {
+      cartData.splice(ind, 1);
+    }
+  }
 
   return (
     <ProductContext.Provider
@@ -40,6 +70,8 @@ const Context = ({ children }) => {
         setOrderList,
         counter,
         total,
+        increamentItem: increamentItem,
+        decreamentItem: decreamentItem,
         addToCart: addToCart,
       }}
     >
