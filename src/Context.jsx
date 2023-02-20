@@ -1,13 +1,19 @@
 import React, { createContext } from "react";
 import { useState } from "react";
+import App from "./App";
 import { foodItems } from "./components/FoodItems";
 
 const ProductContext = createContext({});
 
-const Context = ({ children }) => {
+const Root = ({ children }) => {
   const [counter, setCounter] = useState(0);
   const [orderList, setOrderList] = useState([]);
   const [total, setTotal] = useState(0);
+  const [loginCredentials,setLoginCredentials] = useState([{
+    id: "mail@example.com",
+    password: "shilpa123"
+  }]);
+  const [isLoggedIn,setIsLoggedIn] = useState(false);
 
   var cartData = [...orderList];
   const addToCart = (id) => {
@@ -36,11 +42,12 @@ const Context = ({ children }) => {
   var currPrice = 0;
   function increamentItem(id) {
     var incObj = cartData.find((element) => element.id == id);
+
+    currPrice = incObj.price/ (incObj.quantity);
     incObj.quantity += 1;
 
-    currPrice =
-      (incObj.price * incObj.quantity - incObj.price * (incObj.quantity - 1)) /
-      (incObj.quantity - 1);
+      // (incObj.price * incObj.quantity - incObj.price * (incObj.quantity - 1)) /
+      // (incObj.quantity - 1);
     incObj.price = currPrice * incObj.quantity;
 
     setOrderList(cartData);
@@ -50,34 +57,41 @@ const Context = ({ children }) => {
     let decObj = cartData.find((element) => element.id == id);
     let ind = cartData.indexOf(decObj);
     if (decObj.quantity > 1) {
-      currPrice =
-        (decObj.price * decObj.quantity -
-          decObj.price * (decObj.quantity - 1)) /
-        decObj.quantity;
+      currPrice = decObj.price / decObj.quantity;
+        // (decObj.price * decObj.quantity -
+        //   decObj.price * (decObj.quantity - 1)) /
+        // decObj.quantity;
       decObj.quantity -= 1;
       decObj.price = currPrice * decObj.quantity;
       setOrderList(cartData);
     } else {
-      cartData.splice(ind, 1);
+      cartData.splice(id, 1);
     }
   }
+
 
   return (
     <ProductContext.Provider
       value={{
-        totalAmount: totalAmount,
-        orderList,
-        setOrderList,
+        totalAmount: totalAmount, // function to calc total amount
+        orderList, 
+        setOrderList, 
         counter,
-        total,
+        total, 
         increamentItem: increamentItem,
         decreamentItem: decreamentItem,
         addToCart: addToCart,
+        loginCredentials,
+        setLoginCredentials,
+        isLoggedIn,
+        setIsLoggedIn
       }}
     >
       {children}
-    </ProductContext.Provider>
+   </ProductContext.Provider>
+
+
   );
 };
 
-export { ProductContext, Context };
+export { ProductContext, Root };

@@ -1,3 +1,4 @@
+//array of objects
 export const foodItems = [
   {
     id: 1,

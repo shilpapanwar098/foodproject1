@@ -4,7 +4,8 @@ import Header from "../Header/Header";
 import { useContext } from "react";
 import { ProductContext } from "../../Context";
 
-function Cart() {
+function Cart(props) {
+
    const {
     orderList,
     setOrderList,
@@ -24,7 +25,7 @@ function Cart() {
     <>
       <Header />
 
-      <h3 className="text-center bg-dark text-white p-2">Cart Items</h3>
+      <h3 className="text-center bg-dark text-black p-2">Cart Items</h3>
       <div className="selected-cart-products-list  w-75 m-auto text-center">
         <table style={{width: "100%"}} className="rounded">
           <thead>
@@ -36,12 +37,12 @@ function Cart() {
           <tbody>
                  {orderList.map((item) => {
               return (
-                <tr className="bg-success rounded" key={item.id} >
-                  <td className="text-white " style={{padding: "15px"}}>
+                <tr className="bg-white rounded" key={item.id} >
+                  <td className="text-black " style={{padding: "15px"}}>
                     <img src={item.image} alt={item.title} width={"150"} height={"150"}/>
                   </td>
-                  <td className="text-white">{item.title}</td>
-                  <td className="text-white p-3">
+                  <td className="text-black">{item.title}</td>
+                  <td className="text-black p-3">
                     <button
                       className="btn btn-primary"
                       onClick={() => decreamentItem(item.id)}
@@ -49,14 +50,9 @@ function Cart() {
                       -
                     </button>
                     <span className="mx-1"> {item.quantity}</span>
-                    <button
-                      className="btn btn-primary"
-                      onClick={() => increamentItem(item.id)}
-                    >
-                      +
-                    </button>
+                    <button className="btn btn-primary" onClick={() => increamentItem(item.id)}>+</button>
                   </td>
-                  <td className="text-white">{item.price}</td>
+                  <td className="text-black">{item.price}</td>
                 </tr>
               );
             })}

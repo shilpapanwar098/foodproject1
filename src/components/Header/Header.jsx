@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { ProductContext } from "../../Context";
 
 function Header() {
-  const { counter } = useContext(ProductContext);
+  const { counter, isLoggedIn, setIsLoggedIn } = useContext(ProductContext);
 
   return (
     <>
@@ -48,9 +48,11 @@ function Header() {
           <Link to="/orderstatus" className="btn btn-dark">
             Status
           </Link>
-          <Link to="/logout" className="btn btn-dark">
+         {isLoggedIn ?  <Link to="/" className="btn btn-dark" onClick={(e)=>{e.preventDefault(); setIsLoggedIn(()=>false);}}>
             logout
-          </Link>
+          </Link> :  <Link to="/login" className="btn btn-dark">
+            login
+          </Link>}
         </div>
       </div>
     </>
