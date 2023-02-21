@@ -14,6 +14,7 @@ const Root = ({ children }) => {
     password: "shilpa123"
   }]);
   const [isLoggedIn,setIsLoggedIn] = useState(false);
+  const [searchText,setSearchText] = useState("");
 
   var cartData = [...orderList];
   const addToCart = (id) => {
@@ -84,7 +85,9 @@ const Root = ({ children }) => {
         loginCredentials,
         setLoginCredentials,
         isLoggedIn,
-        setIsLoggedIn
+        setIsLoggedIn,
+        searchText,
+        setSearchText
       }}
     >
       {children}

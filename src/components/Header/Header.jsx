@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useContext } from "react";
 
 import { Link } from "react-router-dom";
 import { ProductContext } from "../../Context";
 
 function Header() {
-  const { counter, isLoggedIn, setIsLoggedIn } = useContext(ProductContext);
+  const { counter, isLoggedIn, setIsLoggedIn, searchText, setSearchText } = useContext(ProductContext);
 
   return (
     <>
@@ -27,7 +27,7 @@ function Header() {
         </div>
         <div className="col-6 d-flex justify-content-center align-items-center">
           <div className="bg-dark rounded w-100">
-            <input type="text" className="w-75 py-2" />
+            <input type="text" className="w-75 py-2" onChange={(e)=> {setSearchText(()=>e.target.value)}} value={searchText} />
             <i className="fa fa-search text-white  w-25 text-center"></i>
           </div>
         </div>
